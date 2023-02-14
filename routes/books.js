@@ -1,9 +1,17 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const Book = require('../models/book');
 
-/* GET users listing. */
+/* GET all book available listing. */
 router.get('/', function(req, res, next) {
-  res.send('get all book available');
+  Book.find({ 'stock': {$gt : 0}},{_id: 0})
+  .exec(function (err, book_list) {
+    if (err) {
+      return next(err);
+    }
+    //Successful
+   res.send(book_list);  
+  });
 });
 
 module.exports = router;
