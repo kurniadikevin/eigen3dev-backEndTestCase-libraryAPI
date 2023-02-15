@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
 });
 
 
-// 0 stock book should not be borrowed
+
 // penalized system
 
 //borrow book
@@ -33,6 +33,14 @@ router.post('/borrow-book',function(req,res,next){
       }
       console.log('book borrowed');
 
+    // check if book stock is not zero before input to member borrowed book
+    Book.find({'code' : req.body.book_code},{_id: 0})
+    .exec(function (err, book_info) {
+      if (err) {
+        return next(err);
+      }
+      else if (book_info.stock >= 0){
+
       Member.findOneAndUpdate({code: req.body.member_code, number_of_book_borrowed : {$lt : 2}},{
         $inc : {number_of_book_borrowed : 1}, $push : { 
           borrowed_book : {book_code : req.body.book_code, date : new Date()}
@@ -45,16 +53,14 @@ router.post('/borrow-book',function(req,res,next){
         } 
         console.log('member info updated for borrowing book')
       })
+    }
       res
         .status(200)
         .end()
     })
-})
+})})
 
 
-// return book that has been in member borrowed book and book borrowed by 
-
-const mapArrBookCode =(arr)=>{ arr.map(function(x) { return x.book_code } )};
 
 //return book
 router.post('/return-book',function(req,res,next){
