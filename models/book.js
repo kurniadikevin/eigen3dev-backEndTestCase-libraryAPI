@@ -8,6 +8,7 @@ const BookSchema = new Schema({
     title : {type:String  ,required:true},
     author : {type:String  ,required:true},
     stock : {type:Number  ,required:true},
+    borrowed_by : {type:Array, default:[]}
     
 });
 

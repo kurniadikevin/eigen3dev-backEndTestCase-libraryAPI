@@ -16,25 +16,27 @@
     "produces": [
       "application/json"
     ],
+
     "paths": {
+
       "/books": {
         "get": {
           "tags": [
             "books"
           ],
-          "summary": "Get all books",
+          "summary": "Get all books available",
           "responses": {
             "200": {
               "description": "Successful response",
               "schema": {
                 "type": "array",
-                "items": 
-                [{
+                "example": 
+                {
                     "code": "JK-45",
                     "title": "Harry Potter",
                     "author": "J.K Rowling",
                     "stock": 1
-                }]
+                }
               }
             }
           }
@@ -59,7 +61,7 @@
             "200": {
               "description": "Successful response",
               "schema": {
-                "$ref": "#/models/book.js"
+              
               }
             },
             "400": {
@@ -67,8 +69,78 @@
             }
           }
         }
-    }}
-    
-    
+    },"/members" :{
+        "get": {
+            "tags": [
+              "members"
+            ],
+            "summary": "Get all members",
+            "responses": {
+              "200": {
+                "description": "Successful response",
+                "schema": {
+                  "type": "array",
+                  "example": 
+                  [
+                    {
+                        "code": "M001",
+                        "name": "Angga"
+                    },
+                    {
+                        "code": "M002",
+                        "name": "Ferry"
+                    },
+                    {
+                        "code": "M003",
+                        "name": "Putri"
+                    }
+                ]
+                }
+              }
+            }
+          }
+
+    }, "/borrow-book" : {
+      "post" :{
+        "tags": [
+          "borrow-book"
+        ],
+        "summary": "Borrowing book to specific member",
+        "parameters": [],
+        "requestBody": {
+          "description": "Input for member code and book code",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Member code",
+                    "example": "M001"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Book code",
+                    "example": "JK-45"
+                  }
+                }}}}},
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+            
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
     }
+}
+    
+    
+}
     
