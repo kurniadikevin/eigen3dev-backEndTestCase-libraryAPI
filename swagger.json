@@ -3,25 +3,72 @@
     "info": {
       "version": "1.0.0",
       "title": "Library API",
-      "description": "Back End test Eigen3Dev ",
-      "license": {
-        "name": "MIT",
-        "url": "https://opensource.org/licenses/MIT"
-      }
+      "description": "API for managing books and members in a library"
     },
     "host": "localhost:3000",
     "basePath": "/",
-    "tags": [
-      {
-        "name": "Member",
-        "description": "API for member in the system"
-      },
-      {
-        "name": "Book",
-        "description": "API for book in the system"
-      }
+    "schemes": [
+      "http"
     ],
-    "schemes": ["http"],
-    "consumes": ["application/json"],
-    "produces": ["application/json"]
-  }
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/books": {
+        "get": {
+          "tags": [
+            "books"
+          ],
+          "summary": "Get all books",
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "schema": {
+                "type": "array",
+                "items": 
+                [{
+                    "code": "JK-45",
+                    "title": "Harry Potter",
+                    "author": "J.K Rowling",
+                    "stock": 1
+                }]
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "books"
+          ],
+          "summary": "Add a new book",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "book",
+              "description": "Book object that needs to be added",
+              "required": true,
+              "schema": {
+                "$ref": "#/models/book.js"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "schema": {
+                "$ref": "#/models/book.js"
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            }
+          }
+        }
+    }}
+    
+    
+    }
+    

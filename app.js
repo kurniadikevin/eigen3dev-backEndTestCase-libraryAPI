@@ -10,8 +10,11 @@ var booksRouter = require('./routes/books');
 
 const swaggerUi = require('swagger-ui-express');
 swaggerDocument = require('./swagger.json');
+const cors = require('cors');
 
 var app = express();
+
+app.use(cors());
 
 //integrate MONGO DB
 const mongoose = require("mongoose");
