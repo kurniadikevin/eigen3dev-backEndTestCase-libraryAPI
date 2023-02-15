@@ -1,5 +1,6 @@
 {
-    "swagger": "2.0",
+    
+    "openapi": "3.0.0",
     "info": {
       "version": "1.0.0",
       "title": "Library API",
@@ -40,35 +41,8 @@
               }
             }
           }
-        },
-        "post": {
-          "tags": [
-            "books"
-          ],
-          "summary": "Add a new book",
-          "parameters": [
-            {
-              "in": "body",
-              "name": "book",
-              "description": "Book object that needs to be added",
-              "required": true,
-              "schema": {
-                "$ref": "#/models/book.js"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Successful response",
-              "schema": {
-              
-              }
-            },
-            "400": {
-              "description": "Bad request"
-            }
-          }
         }
+        
     },"/members" :{
         "get": {
             "tags": [
@@ -100,47 +74,98 @@
             }
           }
 
-    }, "/borrow-book" : {
-      "post" :{
-        "tags": [
-          "borrow-book"
-        ],
-        "summary": "Borrowing book to specific member",
-        "parameters": [],
-        "requestBody": {
-          "description": "Input for member code and book code",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "description": "Member code",
-                    "example": "M001"
-                  },
-                  "password": {
-                    "type": "string",
-                    "description": "Book code",
-                    "example": "JK-45"
-                  }
-                }}}}},
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "schema": {
-            
+    }, 
+"/borrow-book" : { 
+  "post": {
+    "tags": [
+      "borrow-book"
+    ],
+    "summary": "Borrow book by input member_code and book_code",
+    "description": "Add member_code and book_code",
+    "operationId": "borrowBook",
+    "requestBody":  {
+      "description": "Create borrowing transaction",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "book_code": {
+                "type": "string"},
+                "member_code": {
+                  "type": "string"
+                }
+              
             }
-          },
-          "400": {
-            "description": "Bad request"
           }
         }
+      },
+      "required": true
+    } ,
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "content": {
+          "application/json": {
+            "schema": {
+             "type": "code 200"
+            }
+          }
+        }
+      },
+      "405": {
+        "description": "Invalid input"
       }
     }
+  }
+}, 
+"/return-book" : { 
+  "post": {
+    "tags": [
+      "return-book"
+    ],
+    "summary": "Return book by input member_code and book_code",
+    "description": "Add member_code and book_code",
+   
+    "requestBody": {
+      "description": "Create returning transaction",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "book_code": {
+                "type": "string"},
+                "member_code": {
+                  "type": "string"
+                }
+              
+            }
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "content": {
+          "application/json": {
+            "schema": {
+             "type": "code 200"
+            }
+          }
+        }
+      },
+      "405": {
+        "description": "Invalid input"
+      }
+    }
+  }
 }
+}}
+
     
     
-}
+
     
