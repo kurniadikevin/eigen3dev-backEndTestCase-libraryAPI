@@ -140,7 +140,7 @@ const checkForPenalized =(req,res,next)=>{
       // should be 7 days in seconds
       timeDifferentInSeconds > 604800
     ){
-    console.log('more than 7 days ago');
+    console.log('borrow more than 7 days ago');
     Member.findOneAndUpdate ({ code : req.body.member_code},{
       penalized : true, penalized_date : new Date()
     },{ returnNewDocument: true},
@@ -154,7 +154,7 @@ const checkForPenalized =(req,res,next)=>{
     
      }
   else{
-    console.log('less than 7 days ago')
+    console.log('borrow less than 7 days ago')
     next();
 
   }})

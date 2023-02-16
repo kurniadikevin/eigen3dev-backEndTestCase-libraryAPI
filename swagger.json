@@ -23,7 +23,7 @@
       "/books": {
         "get": {
           "tags": [
-            "books"
+            "check the book"
           ],
           "summary": "Get all books available",
           "responses": {
@@ -46,7 +46,7 @@
     },"/members" :{
         "get": {
             "tags": [
-              "members"
+              "member check"
             ],
             "summary": "Get all members",
             "responses": {
@@ -166,7 +166,7 @@
 "/update-penalized" : { 
   "post": {
     "tags": [
-      "Update penalized manually"
+      "Update penalized state manually"
     ],
     "summary": "Update penalized state",
     "description": "Penalized can be automatic but this method is for update penalized state manually for debugging",
