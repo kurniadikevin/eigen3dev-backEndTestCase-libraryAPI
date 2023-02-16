@@ -66,38 +66,48 @@ router.post('/update-penalized',function(req,res){
 router.post('/borrow-book',clearingPenalized ,function(req,res,next){
   
     // check if book stock is not zero before input to member borrowed book
-    Book.find({code : req.body.book_code},{_id: 0})
-    .exec(function (err, book_info) {
+    Member.find({code : req.body.member_code},{_id: 0})
+    .exec(function (err, member_info) {
       if (err) {
         return next(err);
       }
-      else  if (book_info[0].stock !== 0) {
-        console.log(book_info[0]);
-    
+      else  if ( member_info[0].number_of_book_borrowed < 2) {
+        console.log(member_info[0]);
+
+  //check if number of book borrowed by member for maximum 2 book
+        Book.find ({code: req.body.book_code},{_id : 0})
+        .exec(function(err,book_info){
+          if(err){
+            return next(err);
+          } else if((book_info[0].stock > 0)) {
+      
     // increase number of book borrowed on member then push book code and date on borrowed book property on member
       Member.findOneAndUpdate ({code: req.body.member_code, number_of_book_borrowed : {$lt : 2},
         penalized : false},{
         $inc : {number_of_book_borrowed : 1}, $push : { 
           borrowed_book : {book_code : req.body.book_code, date : new Date()}
         }
-      },
-      { returnNewDocument: true},
+      },{ returnNewDocument: true},
       (err)=>{
         if(err){
           return next(err);
         } 
-        console.log('member info updated for borrowing book');
-        Book.findOneAndUpdate ({code: req.body.book_code , stock : {$gt : 0}},{
-          $inc : { stock : -1 }, $push: {borrowed_by : req.body.member_code}
-        },
-          { returnNewDocument: true},
-          (err)=>{
-            if(err){
-              return next(err);
-            }
-            console.log('book borrowed');
-          })
+
+          console.log('member info updated for borrowing book');
+          Book.findOneAndUpdate ({code: req.body.book_code , stock : {$gt : 0}},{
+            $inc : { stock : -1 }, $push: {borrowed_by : req.body.member_code}
+          },
+            { returnNewDocument: true},
+            (err)=>{
+              if(err){
+                return next(err);
+              }
+              console.log('book borrowed');
+            })
+        //}
       })
+      }
+    })
     }
       res
         .send('Member info and book stock updated for borrowing case')
