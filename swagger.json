@@ -75,7 +75,7 @@
           }
 
     }, 
-"/books/borrow-book" : { 
+"/borrow-book" : { 
   "post": {
     "tags": [
       "borrow-book"
@@ -119,7 +119,7 @@
     }
   }
 }, 
-"/books/return-book" : { 
+"/return-book" : { 
   "post": {
     "tags": [
       "return-book"

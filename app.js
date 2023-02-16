@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/members', membersRouter);
-app.use('/books', booksRouter);
+app.use('/', booksRouter);
 
 //swagger api docs view
 app.use(
