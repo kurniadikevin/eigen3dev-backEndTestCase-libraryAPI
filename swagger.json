@@ -162,8 +162,49 @@
       }
     }
   }
-}
-}}
+},
+"/update-penalized" : { 
+  "post": {
+    "tags": [
+      "Update penalized manually"
+    ],
+    "summary": "Update penalized state",
+    "description": "Penalized can be automatic but this method is for update penalized state manually for debugging",
+   
+    "requestBody": {
+      "description": "Update penalized",
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+                "member_code": {
+                  "type": "string"
+                }
+              
+            }
+          }
+        }
+      },
+      "required": true
+    },
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "content": {
+          "application/json": {
+            "schema": {
+             "type": "code 200"
+            }
+          }
+        }
+      },
+      "405": {
+        "description": "Invalid input"
+      }
+    }
+  }
+}}}
 
     
     

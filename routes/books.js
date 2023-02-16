@@ -31,8 +31,8 @@ const clearingPenalized =(req,res,next)=>{
    if(err){
     return next(err);
 
-    //should be 3 days 
-   } else if( timeDifferentInSeconds > 30){
+    //should be 3 days (259200 seconds)
+   } else if( timeDifferentInSeconds > 259200){
    
     Member.findOneAndUpdate ({ code : req.body.member_code},{
       penalized : false, penalized_date : null
@@ -50,13 +50,11 @@ const clearingPenalized =(req,res,next)=>{
      res.send('member still in penalized period')
     //next();
    }
-  
 
-   //res.send('200')
   })
 }
 
-router.post('/test',function(req,res){
+router.post('/update-penalized',function(req,res){
   clearingPenalized(req,res)
 });
 
@@ -127,7 +125,7 @@ const checkForPenalized =(req,res,next)=>{
     }
     else if(
       // should be 7 days
-      timeDifferentInSeconds > 5
+      timeDifferentInSeconds > 604800
     ){
     console.log('more than 5s ago');
     Member.findOneAndUpdate ({ code : req.body.member_code},{

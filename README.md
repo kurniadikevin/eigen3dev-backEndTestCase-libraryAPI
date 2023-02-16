@@ -1,40 +1,42 @@
-# Backend Test Case
+# Backend Test Case Eigen3dev
 
 ## Entities
 
 - Member
 - Book
 
+## Note
+This project run locally on ```http://localhost:3000```
+To run project locally use command ```npm run dev``` for run it with auto update using nodemon.
+
+
+## Swagger-API-Docs
+Swagger API Dos available at ```http://localhost:3000/api-docs/```
+
+## Database
+
+-MongoDb
+
 ## Use Case
 
-- Members can borrow books with conditions
-    - [x ]  Members may not borrow more than 2 books
-    - [ x]  Borrowed books are not borrowed by other members
-    - [ ]  Member is currently not being penalized
-- Member returns the book with conditions
-    - [ ]  The returned book is a book that the member has borrowed
-    - [ ]  If the book is returned after more than 7 days, the member will be subject to a penalty. Member with penalty cannot able to borrow the book for 3 days
-- Check the book
-    - [x ]  Shows all existing books and quantities
-    - [x ]  Books that are being borrowed are not counted
-- Member check
-    - [x ]  Shows all existing members
-    - [x ]  The number of books being borrowed by each member
+- Get all member list (GET)
 
-## Requirements
+  ```http://localhost:3000/members```
+ 
 
-- [ ]  it should be use any framework, but prefered [NestJS](https://nestjs.com/) Framework Or [ExpressJS](https://expressjs.com/)
-- [ ]  it should be use Swagger as API Documentation
-- [ ]  it should be use Database (SQL/NoSQL)
-- [ ]  it should be open sourced on your github repo
+- Get all book that available in stock  (GET)  
+ ```http://localhost:3000/books```
 
-## Extras
+- Borrow book (POST)
 
-- [ ]  Implement [DDD Pattern]([https://khalilstemmler.com/articles/categories/domain-driven-design/](https://khalilstemmler.com/articles/categories/domain-driven-design/))
-- [ ]  Implement Unit Testing
+  ```http://localhost:3000/borrow-book```
 
-## Notes
-- Feel free to add some structure or plugins
+- Return book (POST)
+
+  ```http://localhost:3000/return-book```
 
 
-------
+- Update penalized member (POST)
+
+  ```http://localhost:3000/update-penalized```
+
